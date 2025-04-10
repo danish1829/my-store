@@ -1,8 +1,8 @@
 const express = require('express');
 const clothRouter = express.Router();
-const Clothes = require('../models/clothes');
-const authValidation = require('../middleware/authValidation');
-const upload = require('../middleware/multer');
+const Clothes = require('../../models/clothes');
+const authValidation = require('../../middleware/authValidation');
+const upload = require('../../middleware/multer');
 
 clothRouter.post('/upload', authValidation, upload.array('images', 5), async (req, res) => {
     try {

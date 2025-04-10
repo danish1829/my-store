@@ -1,15 +1,14 @@
 const express = require('express');
 const userRouter = express.Router();
-const User = require('../models/users');
+const User = require('../../models/users');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const authValidation = require('../middleware/authValidation');
+const authValidation = require('../../middleware/authValidation');
 
 userRouter.post('/signup', async (req, res) => {
   const { fullName, email, password, gender, photoURL } = req.body;
 
   try {
-
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists with this email' });
@@ -33,13 +32,14 @@ userRouter.post('/signup', async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error.message);
+    console.error("Signup Error:", error); 
     res.status(500).json({
       message: 'Something went wrong',
       error: error.message
     });
   }
 });
+
 
 userRouter.post('/login', async (req, res) => {
   try {
@@ -80,6 +80,21 @@ userRouter.post('/login', async (req, res) => {
     });
   }
 });
+
+userRouter.get('/profile/view', authValidation, (req, res) => {
+  try {
+    const loginUser = req.user;
+    const data = loginUser;
+
+    res.status(201).json({
+      data : data,
+      message : 'profile fetched successfully!!'
+    })
+  } catch (error) {
+    console.log(error);
+    
+  }
+})
 
 userRouter.post('/logout', authValidation, async (req, res) => {
     try {

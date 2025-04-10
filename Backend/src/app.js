@@ -1,17 +1,16 @@
 const express = require('express');
 const connectDB = require('./config/dataBase');
 const app = express();
-const userRouter = require('./routes/users');
-const clothRouter = require('./routes/clothes');
-const cookies = require('cookie-parser')
+const cookies = require('cookie-parser');
+const routes = require('./routes/index');
 
 const PORT = 5555;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookies());
 
-app.use('/', userRouter);
-app.use('/', clothRouter)
+app.use('/', routes);
 
 connectDB().then(()=>{
     console.log('database connected successfully');
