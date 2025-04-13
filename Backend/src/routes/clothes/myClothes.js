@@ -1,9 +1,9 @@
 const express = require('express');
-const clothRouter = express.Router();
+const myClothes = express.Router();
 const Clothes = require('../../models/clothes');
 const authValidation = require('../../middleware/authValidation');
 
-clothRouter.get('/clothes/my-clothes', authValidation, async (req, res) => {
+myClothes.get('/my-clothes', authValidation, async (req, res) => {
     try {
         const myClothes = await Clothes.find({ seller: req.user._id });
         res.status(200).json({
@@ -15,4 +15,4 @@ clothRouter.get('/clothes/my-clothes', authValidation, async (req, res) => {
     }
 });
 
-module.exports = clothRouter;
+module.exports = myClothes;

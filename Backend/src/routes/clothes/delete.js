@@ -1,9 +1,9 @@
 const express = require('express');
-const clothControl = express.Router();
+const deleteClothes = express.Router();
 const Clothes = require('../../models/clothes');
 const authValidation = require('../../middleware/authValidation');
 
-clothControl.delete('/clothes/:id', authValidation, async (req, res) => {
+deleteClothes.delete('/clothes/:id', authValidation, async (req, res) => {
     try {
       const { id } = req.params;
   
@@ -31,4 +31,4 @@ clothControl.delete('/clothes/:id', authValidation, async (req, res) => {
     }
   });
 
-  module.exports = clothControl;
+  module.exports = deleteClothes;

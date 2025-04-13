@@ -1,9 +1,9 @@
 const express = require('express');
-const clothRouter = express.Router();
+const filterCloth = express.Router();
 const Clothes = require('../../models/clothes');
 const authValidation = require('../../middleware/authValidation');
 
-clothRouter.get('/clothes', authValidation, async (req, res) => {
+filterCloth.get('/clothes', authValidation, async (req, res) => {
     try {
         const { brand, size, category, condition, minPrice, maxPrice, search } = req.query;
 
@@ -41,7 +41,7 @@ clothRouter.get('/clothes', authValidation, async (req, res) => {
     }
 });
 
-clothRouter.get('/clothes/:id', authValidation, async (req, res) => {
+filterCloth.get('/clothes/:id', authValidation, async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -67,4 +67,4 @@ clothRouter.get('/clothes/:id', authValidation, async (req, res) => {
     }
 });
 
-module.exports = clothRouter;
+module.exports = filterCloth;

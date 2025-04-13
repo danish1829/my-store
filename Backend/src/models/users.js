@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-const { unique } = require('next/dist/build/utils');
 const validator = require('validator');
+
+delete mongoose.connection.models['Customers'];
 
 const users = new mongoose.Schema({
     fullName : {
@@ -40,7 +41,11 @@ const users = new mongoose.Schema({
     photoURL : {
         type : String,
         default : 'https://cdn.pixabay.com/photo/2013/07/12/14/36/man-148582_1280.png'
-    }
+    },
+    wishlist: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Clothes'
+    }]
 },{timestamps: true});
 
 const user = mongoose.model('Customers', users);

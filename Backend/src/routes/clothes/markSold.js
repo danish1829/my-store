@@ -1,9 +1,9 @@
 const express = require('express');
-const clothControl = express.Router();
+const markSold = express.Router();
 const Clothes = require('../../models/clothes');
 const authValidation = require('../../middleware/authValidation');
 
-clothControl.patch('/clothes/:id/mark-sold', authValidation, async (req, res) => {
+markSold.patch('/clothes/:id/mark-sold', authValidation, async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -34,4 +34,4 @@ clothControl.patch('/clothes/:id/mark-sold', authValidation, async (req, res) =>
     }
 });
 
-module.exports = clothControl;
+module.exports = markSold;

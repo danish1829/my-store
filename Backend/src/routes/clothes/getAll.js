@@ -1,9 +1,9 @@
 const express = require('express');
-const clothRouter = express.Router();
+const getAllClothes = express.Router();
 const Clothes = require('../../models/clothes');
 const authValidation = require('../../middleware/authValidation');
 
-clothRouter.get('/clothes',authValidation ,async (req, res) => {
+getAllClothes.get('/getclothes',authValidation ,async (req, res) => {
     try {
         const clothes = await Clothes.find({ isSold: false }).populate('seller', 'fullName photoURL');
         res.status(200).json({
@@ -19,4 +19,4 @@ clothRouter.get('/clothes',authValidation ,async (req, res) => {
     }
 });
 
-module.exports = clothRouter;
+module.exports = getAllClothes;

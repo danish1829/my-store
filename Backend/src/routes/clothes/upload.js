@@ -1,10 +1,10 @@
 const express = require('express');
-const clothRouter = express.Router();
+const uploadClothes = express.Router();
 const Clothes = require('../../models/clothes');
 const authValidation = require('../../middleware/authValidation');
 const upload = require('../../middleware/multer');
 
-clothRouter.post('/upload', authValidation, upload.array('images', 5), async (req, res) => {
+uploadClothes.post('/upload', authValidation, upload.array('images', 5), async (req, res) => {
     try {
         const { title, brand, size, category, condition, description, price } = req.body;
         const imageUrls = req.files.map(file => file.path);
@@ -37,4 +37,4 @@ clothRouter.post('/upload', authValidation, upload.array('images', 5), async (re
     
 });
 
-module.exports = clothRouter;
+module.exports = uploadClothes;
