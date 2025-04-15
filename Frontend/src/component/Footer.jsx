@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-10 px-6">
+    <footer className="bg-gray-900 text-white py-4 px-6 w-full bottom-0 left-0">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 justify-evenly">
         
         {/* Logo/Brand */}
