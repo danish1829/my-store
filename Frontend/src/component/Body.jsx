@@ -11,7 +11,6 @@ const Slideshow = () => {
     'https://static.zara.net/assets/public/504d/a430/0c314af4a3de/c58fcc89ec29/image-landscape-8b2f2c18-549f-4dec-bc58-1367cd4c4286-default_0/image-landscape-8b2f2c18-549f-4dec-bc58-1367cd4c4286-default_0.jpg?ts=1742320487359&w=1920'
   ];
 
-  // Detect scroll event to show images
   useEffect(() => {
     const handleScroll = () => {
       if (slideshowRef.current && window.scrollY + window.innerHeight >= slideshowRef.current.offsetTop) {
@@ -19,10 +18,8 @@ const Slideshow = () => {
       }
     };
 
-    // Add event listener for scroll
     window.addEventListener('scroll', handleScroll);
 
-    // Cleanup on unmount
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -32,7 +29,7 @@ const Slideshow = () => {
     const video = videoRef.current;
     if (video) {
       video.onended = () => {
-        setShowImages(true); // Show images when video ends
+        setShowImages(true); 
       };
     }
   }, []);
