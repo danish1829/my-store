@@ -23,11 +23,46 @@ wishlistRouter.post('/wishlist/:clothId', authValidation, async (req, res) => {
         user.wishlist.push(clothId);
         await user.save();
 
-        res.status(200).json({ message: 'Item added to wishlist', wishlist: user.wishlist });
+        // Now fetch all cloth details in the wishlist
+        const populatedWishlist = await Clothes.find({ _id: { $in: user.wishlist } });
+
+        res.status(200).json({ 
+            message: 'Item added to wishlist', 
+            wishlist: populatedWishlist 
+        });
     } catch (error) {
         res.status(500).json({ message: 'Error adding to wishlist', error: error.message });
     }
 });
+
+wishlistRouter.delete('/wishlist/delete/:clothId', authValidation, async (req, res) => {
+    const { clothId } = req.params;
+    const userId = req.user._id;
+
+    try {
+        const user = await User.findById(userId);
+
+        // Check if item exists in wishlist
+        if (!user.wishlist.includes(clothId)) {
+            return res.status(404).json({ message: 'Item not found in wishlist' });
+        }
+
+        // Remove the item
+        user.wishlist = user.wishlist.filter(id => id.toString() !== clothId);
+        await user.save();
+
+        // Optionally, return updated wishlist with details
+        const updatedWishlist = await Clothes.find({ _id: { $in: user.wishlist } });
+
+        res.status(200).json({
+            message: 'Item removed from wishlist',
+            wishlist: updatedWishlist
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Error removing from wishlist', error: error.message });
+    }
+});
+
 
 wishlistRouter.get('/wishlist', authValidation, async (req, res) => {
     try {

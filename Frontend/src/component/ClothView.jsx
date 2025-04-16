@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addUser } from '@/utils/userSlice';
 
 const ClothView = () => {
+  const dispatch = useDispatch();
   const { _id } = useParams();
   const [cloth, setCloth] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -48,10 +51,18 @@ const ClothView = () => {
     // You can add logic to add the item to the cart
   };
 
-  const handleAddToWishlist = () => {
-    console.log('Added to wishlist');
-    // You can add logic to add the item to the wishlist
-  };
+  const handleWishLish = async () => {
+    try {
+      const res = await axios.post('http://localhost:5555/clothes/wishlist/'+_id,
+        {},
+        {withCredentials : true}
+      )
+      console.log(res?.data?.wishlish);
+      dispatch(addUser(res?.data?.wishlish));
+    } catch (error) {
+      
+    }
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row gap-10">
@@ -107,8 +118,8 @@ const ClothView = () => {
           {seller && (
             <div className="mt-6 flex items-center gap-4 border-t pt-4">
               <img
-                src={seller.photoURL}
-                alt={seller.fullName}
+                src={seller.photoURL || "https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png"}
+                alt="img"
                 className="w-12 h-12 rounded-full object-cover"
               />
               <p className="text-sm text-gray-700">
@@ -125,9 +136,8 @@ const ClothView = () => {
           >
             Add to Cart
           </button>
-          <button
-            onClick={handleAddToWishlist}
-            className="border border-black text-black px-6 py-2 rounded-full hover:bg-black hover:text-white transition"
+          <button onClick={handleWishLish}
+            className="border border-black text-black px-6 py-2 rounded-full hover:bg-black hover:text-white transition cursor-pointer"
           >
             Wishlist
           </button>

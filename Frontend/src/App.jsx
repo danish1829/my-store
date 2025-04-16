@@ -6,6 +6,7 @@ import appStore from './utils/appStore'
 import './App.css';
 import Shopping from './component/Shopping'
 import ClothView from './component/ClothView'
+import WishList from './component/WishList'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path='/' element = { <Body /> }/>
             <Route path='/shopping' element = { <Shopping /> }/>
             <Route path='/cloth/view/:_id' element = { <ClothView /> }/>
+            <Route path='/user/wishlish' element = { <WishList /> }/>
           </Route>
         </Routes>
       </Router>

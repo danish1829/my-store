@@ -169,6 +169,7 @@ const Navbar = () => {
         <img className='rounded-full w-10'
              src={photoURL || "https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png"} alt="profile-img" />
         </div>
+        <Link to='/user/wishlish'><div className="text-red-500 text-2xl cursor-pointer">❤️</div></Link>
       </nav>
     </header>
   );
