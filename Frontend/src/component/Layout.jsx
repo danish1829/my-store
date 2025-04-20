@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { addUser } from '../utils/userSlice'
+import { setWishlist } from '@/utils/wishListSlice'
 
 const Layout = () => {
 
@@ -30,10 +31,28 @@ const Layout = () => {
     loginUser();
   },[])
 
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5555/clothes/wishlist`, {
+          withCredentials: true,
+        });
+        if (res?.data?.wishlist) {
+          dispatch(setWishlist(res.data.wishlist));
+        }
+      } catch (err) {
+        console.log("Wishlist fetch failed:", err.message);
+      }
+    };
+  
+    fetchWishlist();
+  }, []);
+  
+
   return (
-    <div>
+    <div className='flex flex-col min-h-screen'>
         <Navbar />
-        <main>
+        <main className='flex-1'>
             <Outlet />
         </main>
         <Footer />

@@ -20,6 +20,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((store) => store?.user?.data);
+  const wishlistItems = useSelector((state) => state.wishlist.items || []);
+
   //console.log(user);
   const { photoURL } = user || {}
 
@@ -166,10 +168,17 @@ const Navbar = () => {
             
         </div>
         <div>
-        <img className='rounded-full w-10'
-             src={photoURL || "https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png"} alt="profile-img" />
+        <Link to='/user/profile'><img className='rounded-full w-10'
+             src={photoURL || "https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png"} alt="profile-img" /></Link>
         </div>
-        <Link to='/user/wishlish'><div className="text-red-500 text-2xl cursor-pointer">❤️</div></Link>
+        <Link to='/user/wishlist' className="relative">
+  <div className="text-red-500 text-2xl cursor-pointer">❤️</div>
+  {wishlistItems.length > 0 && (
+    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">
+      {wishlistItems.length}
+    </span>
+  )}
+</Link>
       </nav>
     </header>
   );

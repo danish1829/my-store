@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addUser } from '@/utils/userSlice';
+import { addToWishlist, setWishlist } from '@/utils/wishListSlice';
 
 const ClothView = () => {
   const dispatch = useDispatch();
@@ -48,21 +49,23 @@ const ClothView = () => {
 
   const handleAddToCart = () => {
     console.log('Added to cart');
-    // You can add logic to add the item to the cart
   };
 
-  const handleWishLish = async () => {
+  const handleWishList = async () => {
     try {
-      const res = await axios.post('http://localhost:5555/clothes/wishlist/'+_id,
+      const res = await axios.post(
+        `http://localhost:5555/clothes/wishlist/${_id}`,
         {},
-        {withCredentials : true}
-      )
-      console.log(res?.data?.wishlish);
-      dispatch(addUser(res?.data?.wishlish));
+        { withCredentials: true }
+      );
+      if (res?.data?.wishlist) {
+        dispatch(setWishlist(res.data.wishlist)); // ✅ update wishlist in store
+      }
     } catch (error) {
-      
+      console.log("Wishlist Error:", error.message);
     }
-  }
+  };
+  
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row gap-10">
@@ -136,7 +139,7 @@ const ClothView = () => {
           >
             Add to Cart
           </button>
-          <button onClick={handleWishLish}
+          <button onClick={handleWishList}
             className="border border-black text-black px-6 py-2 rounded-full hover:bg-black hover:text-white transition cursor-pointer"
           >
             Wishlist
