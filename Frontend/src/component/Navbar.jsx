@@ -24,7 +24,6 @@ const Navbar = () => {
 
   //console.log(user);
   const { photoURL } = user || {}
-
   const [isSignUp, setIsSignUp] = useState(false);
   const [fullName, setFullName] = useState('');
   const [photoUrl, setPhotoUrl] = useState('');

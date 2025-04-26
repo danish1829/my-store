@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addUser } from '@/utils/userSlice';
 import { addToWishlist, setWishlist } from '@/utils/wishListSlice';
+import { addToCart } from '@/utils/cartSlice';
 
 const ClothView = () => {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ const ClothView = () => {
   };
 
   const handleAddToCart = () => {
+    dispatch(addToCart(cloth));
     console.log('Added to cart');
   };
 

@@ -8,6 +8,8 @@ import Shopping from './component/Shopping'
 import ClothView from './component/ClothView'
 import WishList from './component/WishList'
 import Profile from './component/Profile'
+import Cart from './component/Cart'
+import UploadClothDialog from './component/UploadClothDialog'
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
             <Route path='/cloth/view/:_id' element = { <ClothView /> }/>
             <Route path='/user/wishlist' element = { <WishList /> }/>
             <Route path='/user/profile' element = { <Profile /> }/>
+            <Route path='/user/cart' element = { <Cart /> }/>
+            <Route path='/clothes/upload' element = { <UploadClothDialog /> }/>
           </Route>
         </Routes>
       </Router>
